@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isaac ❤️ Dani</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:black;
+color:white;
+overflow:hidden;
+text-align:center;
+}
+
+/* estrellas */
+
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+.star{
+position:absolute;
+color:white;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:0.3}
+to{opacity:1}
+}
+
+/* paginas */
+
+.page{
+display:none;
+height:100vh;
+width:100vw;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:20px;
+}
+
+.show{display:flex}
+
+/* titulo estrellas */
+
+.title{
+font-size:40px;
+animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px white}
+to{text-shadow:0 0 30px pink}
+}
+
+/* botones */
+
+button{
+padding:12px 22px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:#ff86d8;
+color:white;
+margin:10px;
+}
+
+/* corazones */
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:fall 6s linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px)}
+100%{transform:translateY(100vh)}
+}
+
+/* tulipanes */
+
+.tulip{
+position:absolute;
+bottom:-40px;
+font-size:40px;
+animation:grow 6s forwards;
+}
+
+@keyframes grow{
+0%{transform:translateY(0)}
+100%{transform:translateY(-180px)}
+}
+
+/* carta */
+
+.envelope{
+font-size:120px;
+cursor:pointer;
+}
+
+/* voleibol */
+
+.ball{
+position:fixed;
+bottom:15px;
+right:15px;
+font-size:32px;
+animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-20px)}
+}
+
+/* imagen */
+
+img{
+border-radius:20px;
+max-width:80%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="ball">🏐</div>
+
+<!-- PAGINA 1 -->
+
+<div class="page show" id="p1">
+
+<h1 class="title">Isaac ❤️ Dani</h1>
+
+<p>Esta página fue hecha solo para ti, mi niña 💜</p>
+<p>¿Estás segura de entrar?</p>
+
+<button onclick="start()">Sí</button>
+<button onclick="alert('Entonces mejor no 😔')">No</button>
+
+</div>
+
+<!-- PAGINA 2 -->
+
+<div class="page" id="p2">
+
+<h2>Para mi estrellita ⭐</h2>
+
+<p>Para ti, mi princesita</p>
+
+<button onclick="next(3)">Entrar</button>
+
+</div>
+
+<!-- PAGINA 3 -->
+
+<div class="page" id="p3">
+
+<h2>Desde el día que te conocí</h2>
+
+<p style="max-width:500px">
+
+Me di cuenta de lo feliz que podía ser contigo.
+Gracias por hacer mis días más bonitos.
+
+</p>
+
+<div id="counter"></div>
+
+<button onclick="next(4)">Siguiente</button>
+
+</div>
+
+<!-- PAGINA 4 -->
+
+<div class="page" id="p4">
+
+<h2>Nuestros recuerdos 💜</h2>
+
+<img id="photo" src="foto1.jpg">
+
+<br><br>
+
+<audio controls>
+<source src="reina_pepiada.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="next(5)">Siguiente</button>
+
+</div>
+
+<!-- PAGINA 5 -->
+
+<div class="page" id="p5">
+
+<h2>Tal vez no son reales</h2>
+<p>pero me esforcé mucho haciendo esto</p>
+
+<div id="tulips"></div>
+
+<button onclick="next(6)">Siguiente</button>
+
+</div>
+
+<!-- PAGINA 6 -->
+
+<div class="page" id="p6">
+
+<div class="envelope" onclick="openLetter()">💌</div>
+
+<p>Haz clic en el sobre</p>
+
+<div id="letter" style="display:none;max-width:500px">
+
+<p>
+
+No quiero escribir mucho porque sé la situación en la que estamos,
+pero quiero recordarte lo mucho que te amo.
+
+Desde que entraste a mi vida me siento más feliz.
+
+Eres muy especial para mí.
+
+Te amo muchísimo 💜
+
+</p>
+
+<button onclick="next(7)">Siguiente</button>
+
+</div>
+
+</div>
+
+<!-- PAGINA 7 -->
+
+<div class="page" id="p7">
+
+<h2>¿Me amas?</h2>
+
+<button onclick="love()">Sí</button>
+<button id="noBtn" onmouseover="run()">No</button>
+
+</div>
+
+<!-- FINAL -->
+
+<div class="page" id="p8">
+
+<h2>
+
+Gracias por ver todo esto 💜
+
+<br><br>
+
+Tal vez no es perfecto  
+pero lo hice con todo mi amor.
+
+<br><br>
+
+Te amo muchísimo.
+
+<br><br>
+
+— Isaac ❤️
+
+</h2>
+
+</div>
+
+<script>
+
+/* estrellas */
+
+for(let i=0;i<100;i++){
+let s=document.createElement("div")
+s.className="star"
+s.innerHTML="✦"
+s.style.left=Math.random()*100+"%"
+s.style.top=Math.random()*100+"%"
+s.style.fontSize=(10+Math.random()*10)+"px"
+document.getElementById("stars").appendChild(s)
+}
+
+/* lluvia corazones */
+
+function hearts(){
+
+for(let i=0;i<100;i++){
+
+let h=document.createElement("div")
+h.className="heart"
+h.innerHTML="💖"
+h.style.left=Math.random()*100+"%"
+h.style.animationDuration=(3+Math.random()*3)+"s"
+
+document.body.appendChild(h)
+
+setTimeout(()=>h.remove(),6000)
+
+}
+
+}
+
+/* iniciar */
+
+function start(){
+hearts()
+next(2)
+}
+
+/* paginas */
+
+function next(n){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"))
+document.getElementById("p"+n).classList.add("show")
+}
+
+/* contador */
+
+const startDate=new Date("2025-11-25")
+
+setInterval(()=>{
+
+const now=new Date()
+const diff=now-startDate
+
+const d=Math.floor(diff/(1000*60*60*24))
+const h=Math.floor(diff/(1000*60*60)%24)
+const m=Math.floor(diff/(1000*60)%60)
+const s=Math.floor(diff/1000%60)
+
+document.getElementById("counter").innerHTML=
+d+" días "+h+"h "+m+"m "+s+"s"
+
+},1000)
+
+/* fotos */
+
+const photos=["foto1.jpg","foto2.jpg","foto3.jpg"]
+let i=0
+
+setInterval(()=>{
+i=(i+1)%photos.length
+document.getElementById("photo").src=photos[i]
+},4000)
+
+/* tulipanes */
+
+for(let i=0;i<12;i++){
+
+let t=document.createElement("div")
+t.className="tulip"
+t.innerHTML="🌷"
+t.style.left=Math.random()*100+"%"
+
+document.getElementById("tulips").appendChild(t)
+
+}
+
+/* carta */
+
+function openLetter(){
+document.getElementById("letter").style.display="block"
+}
+
+/* boton no */
+
+function run(){
+
+const btn=document.getElementById("noBtn")
+
+btn.style.position="absolute"
+btn.style.left=Math.random()*80+"%"
+btn.style.top=Math.random()*80+"%"
+
+}
+
+/* boton si */
+
+function love(){
+alert("Ya sabía que dirías que sí ❤️")
+next(8)
+}
+
+/* gato sorpresa */
+
+document.body.addEventListener("dblclick",()=>{
+alert("🐱 miau")
+})
+
+/* capybara */
+
+document.body.addEventListener("keydown",()=>{
+alert("🦫 capybara apareció!")
+})
+
+</script>
+
+</body>
+</html>
