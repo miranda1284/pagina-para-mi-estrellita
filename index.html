@@ -1,152 +1,206 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Isaac ❤️ Dani</title>
+
+<title>You and me</title>
 
 <style>
+
 body{
 margin:0;
 font-family:Arial;
-background:black;
-color:white;
 overflow:hidden;
+background:#ffd6ec;
 text-align:center;
+color:#333;
 }
-
-/* estrellas */
-
-.stars{
-position:fixed;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
-.star{
-position:absolute;
-color:white;
-animation:twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle{
-from{opacity:0.3}
-to{opacity:1}
-}
-
-/* paginas */
 
 .page{
 display:none;
 height:100vh;
-width:100vw;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-padding:20px;
+padding:30px;
 }
 
-.show{display:flex}
-
-/* titulo estrellas */
-
-.title{
-font-size:40px;
-animation:glow 3s infinite alternate;
+.active{
+display:flex;
 }
-
-@keyframes glow{
-from{text-shadow:0 0 10px white}
-to{text-shadow:0 0 30px pink}
-}
-
-/* botones */
 
 button{
-padding:12px 22px;
-font-size:18px;
+padding:12px 25px;
 border:none;
-border-radius:12px;
-background:#ff86d8;
-color:white;
+border-radius:20px;
+font-size:18px;
 margin:10px;
+cursor:pointer;
+background:#ff6fa5;
+color:white;
 }
 
-/* corazones */
+/* corazones flotando */
 
 .heart{
 position:absolute;
-font-size:20px;
-animation:fall 6s linear forwards;
+color:#ff6fa5;
+animation:float 6s linear infinite;
 }
 
-@keyframes fall{
-0%{transform:translateY(-50px)}
-100%{transform:translateY(100vh)}
+@keyframes float{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
+}
+
+/* contador */
+
+#contador{
+position:absolute;
+bottom:20px;
+left:20px;
+font-size:18px;
+background:white;
+padding:10px;
+border-radius:10px;
 }
 
 /* tulipanes */
 
-.tulip{
-position:absolute;
-bottom:-40px;
-font-size:40px;
-animation:grow 6s forwards;
+.tulip-scene{
+background:black;
+color:white;
 }
 
-@keyframes grow{
-0%{transform:translateY(0)}
-100%{transform:translateY(-180px)}
+.bouquet{
+display:flex;
+gap:60px;
+margin-top:40px;
+}
+
+.tulip{
+position:relative;
+width:40px;
+height:220px;
+}
+
+.stem{
+position:absolute;
+bottom:0;
+left:17px;
+width:6px;
+height:0;
+background:#2ecc71;
+animation:growStem 2s forwards;
+}
+
+.leaf{
+position:absolute;
+width:40px;
+height:20px;
+background:#27ae60;
+border-radius:20px;
+opacity:0;
+}
+
+.left{
+left:-30px;
+bottom:80px;
+transform:rotate(-30deg);
+animation:growLeaf 1s forwards;
+animation-delay:2s;
+}
+
+.right{
+right:-30px;
+bottom:110px;
+transform:rotate(30deg);
+animation:growLeaf 1s forwards;
+animation-delay:2.3s;
+}
+
+.flower{
+position:absolute;
+bottom:140px;
+left:5px;
+width:30px;
+height:0;
+background:#ff6fa5;
+border-radius:50% 50% 0 0;
+animation:bloom 1.5s forwards;
+animation-delay:3s;
+}
+
+@keyframes growStem{
+from{height:0;}
+to{height:150px;}
+}
+
+@keyframes growLeaf{
+from{opacity:0; transform:scale(0);}
+to{opacity:1; transform:scale(1);}
+}
+
+@keyframes bloom{
+from{height:0;}
+to{height:40px;}
 }
 
 /* carta */
 
 .envelope{
-font-size:120px;
+width:150px;
+height:100px;
+background:#ff6fa5;
+position:relative;
 cursor:pointer;
 }
 
-/* voleibol */
-
-.ball{
-position:fixed;
-bottom:15px;
-right:15px;
-font-size:32px;
-animation:bounce 2s infinite;
+.envelope:after{
+content:"";
+position:absolute;
+top:-50px;
+border-left:75px solid transparent;
+border-right:75px solid transparent;
+border-bottom:50px solid #ff6fa5;
 }
 
-@keyframes bounce{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-20px)}
+.letter{
+display:none;
+background:white;
+padding:20px;
+border-radius:10px;
+margin-top:20px;
+max-width:400px;
 }
 
-/* imagen */
+/* boton no */
 
-img{
-border-radius:20px;
-max-width:80%;
+#noBtn{
+position:relative;
 }
+
 </style>
+
 </head>
 
 <body>
 
-<div class="stars" id="stars"></div>
-<div class="ball">🏐</div>
+<audio id="musica">
+<source src="reina_pepiada.mp3" type="audio/mpeg">
+</audio>
 
 <!-- PAGINA 1 -->
 
-<div class="page show" id="p1">
+<div class="page active" id="p1">
 
-<h1 class="title">Isaac ❤️ Dani</h1>
-
-<p>Esta página fue hecha solo para ti, mi niña 💜</p>
+<h2>Esta página es un poco romántica</h2>
 <p>¿Estás segura de entrar?</p>
 
-<button onclick="start()">Sí</button>
-<button onclick="alert('Entonces mejor no 😔')">No</button>
+<button onclick="nextPage()">Sí</button>
+<button onclick="alert('Entonces pa q entras daahhhh')">No</button>
 
 </div>
 
@@ -154,11 +208,9 @@ max-width:80%;
 
 <div class="page" id="p2">
 
-<h2>Para mi estrellita ⭐</h2>
+<h1>Para mi estrellita que hace especiales mis días y más divertidoss</h1>
 
-<p>Para ti, mi princesita</p>
-
-<button onclick="next(3)">Entrar</button>
+<button onclick="nextPage()">Entrar</button>
 
 </div>
 
@@ -166,36 +218,55 @@ max-width:80%;
 
 <div class="page" id="p3">
 
-<h2>Desde el día que te conocí</h2>
+<p>
 
-<p style="max-width:500px">
+Para el amor de mi vida:<br><br>
 
-Me di cuenta de lo feliz que podía ser contigo.
-Gracias por hacer mis días más bonitos.
+Sabes desde ese día que te conocí me di cuenta de lo mucho que se puede llegar a ser feli,
+desde que estoy contigo encontré un lugar seguro y me siento más feli<br><br>
+
+Te agradezco cada día que estás y por eso siempre agradeceré ese 25 de noviembre q nos conocimos
 
 </p>
 
-<div id="counter"></div>
+<div id="contador"></div>
 
-<button onclick="next(4)">Siguiente</button>
+<button onclick="nextPage()">Siguiente</button>
 
 </div>
 
 <!-- PAGINA 4 -->
 
-<div class="page" id="p4">
+<div class="page tulip-scene" id="p4">
 
-<h2>Nuestros recuerdos 💜</h2>
+<h2>Tal vez no son reales, pero me esforcé mucho haciendo esto(se q tan feitos y no son los q esperabas, pero es lo que puedo hacer de momento)</h2>
 
-<img id="photo" src="foto1.jpg">
+<div class="bouquet">
 
-<br><br>
+<div class="tulip">
+<div class="stem"></div>
+<div class="leaf left"></div>
+<div class="leaf right"></div>
+<div class="flower"></div>
+</div>
 
-<audio controls>
-<source src="reina_pepiada.mp3" type="audio/mpeg">
-</audio>
+<div class="tulip">
+<div class="stem"></div>
+<div class="leaf left"></div>
+<div class="leaf right"></div>
+<div class="flower"></div>
+</div>
 
-<button onclick="next(5)">Siguiente</button>
+<div class="tulip">
+<div class="stem"></div>
+<div class="leaf left"></div>
+<div class="leaf right"></div>
+<div class="flower"></div>
+</div>
+
+</div>
+
+<button onclick="nextPage()">Siguiente</button>
 
 </div>
 
@@ -203,12 +274,26 @@ Gracias por hacer mis días más bonitos.
 
 <div class="page" id="p5">
 
-<h2>Tal vez no son reales</h2>
-<p>pero me esforcé mucho haciendo esto</p>
+<h2>Haz click en el sobre 💌</h2>
 
-<div id="tulips"></div>
+<div class="envelope" onclick="abrirCarta()"></div>
 
-<button onclick="next(6)">Siguiente</button>
+<div class="letter" id="carta">
+
+No quiero escribir mucho porque sé la situación en la que estamos,
+pero quiero recordarte lo mucho que te amo y lo mucho que haría por ti
+
+Desde que entraste a mi vida me siento más feliz y me has ayudado
+a mejorar por demasiado y más para mi mismo
+
+Eres una niña super especial y linda
+y espero sigas siendo mi niña por siempre sino te robo t lo juro JAKAJAK
+
+Te amo muchito demasiado t lo juro💕
+
+</div>
+
+<button onclick="nextPage()">Siguiente</button>
 
 </div>
 
@@ -216,193 +301,82 @@ Gracias por hacer mis días más bonitos.
 
 <div class="page" id="p6">
 
-<div class="envelope" onclick="openLetter()">💌</div>
+<h2>¿Me amas?</h2>
 
-<p>Haz clic en el sobre</p>
-
-<div id="letter" style="display:none;max-width:500px">
-
-<p>
-
-No quiero escribir mucho porque sé la situación en la que estamos,
-pero quiero recordarte lo mucho que te amo.
-
-Desde que entraste a mi vida me siento más feliz.
-
-Eres muy especial para mí.
-
-Te amo muchísimo 💜
-
-</p>
-
-<button onclick="next(7)">Siguiente</button>
+<button onclick="nextPage()">Sí</button>
+<button id="noBtn">No</button>
 
 </div>
 
-</div>
-
-<!-- PAGINA 7 -->
+<!-- PAGINA FINAL -->
 
 <div class="page" id="p7">
 
-<h2>¿Me amas?</h2>
-
-<button onclick="love()">Sí</button>
-<button id="noBtn" onmouseover="run()">No</button>
-
-</div>
-
-<!-- FINAL -->
-
-<div class="page" id="p8">
-
 <h2>
 
-Gracias por ver todo esto 💜
+Muchas gracias por llegar hasta aquí.<br><br>
 
-<br><br>
+La verdad me esforcé bastante haciendo esto.<br><br>
 
-Tal vez no es perfecto  
-pero lo hice con todo mi amor.
+Tal vez no es perfecto pero lo hice con todo el amor del mundo.(casi se me cae el pelo)<br><br>
 
-<br><br>
+Espero que te haya gustado.<br><br>
 
-Te amo muchísimo.
-
-<br><br>
-
-— Isaac ❤️
+Te amo muchísimo 💗
 
 </h2>
+
+<h3>You and me🫶🏻</h3>
 
 </div>
 
 <script>
 
-/* estrellas */
+let page=1
 
-for(let i=0;i<100;i++){
-let s=document.createElement("div")
-s.className="star"
-s.innerHTML="✦"
-s.style.left=Math.random()*100+"%"
-s.style.top=Math.random()*100+"%"
-s.style.fontSize=(10+Math.random()*10)+"px"
-document.getElementById("stars").appendChild(s)
+function nextPage(){
+document.getElementById("p"+page).classList.remove("active")
+page++
+document.getElementById("p"+page).classList.add("active")
 }
 
-/* lluvia corazones */
-
-function hearts(){
-
-for(let i=0;i<100;i++){
-
-let h=document.createElement("div")
-h.className="heart"
-h.innerHTML="💖"
-h.style.left=Math.random()*100+"%"
-h.style.animationDuration=(3+Math.random()*3)+"s"
-
-document.body.appendChild(h)
-
-setTimeout(()=>h.remove(),6000)
-
-}
-
-}
-
-/* iniciar */
-
-function start(){
-hearts()
-next(2)
-}
-
-/* paginas */
-
-function next(n){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"))
-document.getElementById("p"+n).classList.add("show")
+function abrirCarta(){
+document.getElementById("carta").style.display="block"
 }
 
 /* contador */
 
-const startDate=new Date("2025-11-25")
+const inicio=new Date("2025-11-25")
 
 setInterval(()=>{
+const ahora=new Date()
+const diff=ahora-inicio
 
-const now=new Date()
-const diff=now-startDate
+const dias=Math.floor(diff/86400000)
+const horas=Math.floor(diff/3600000)%24
+const min=Math.floor(diff/60000)%60
+const seg=Math.floor(diff/1000)%60
 
-const d=Math.floor(diff/(1000*60*60*24))
-const h=Math.floor(diff/(1000*60*60)%24)
-const m=Math.floor(diff/(1000*60)%60)
-const s=Math.floor(diff/1000%60)
-
-document.getElementById("counter").innerHTML=
-d+" días "+h+"h "+m+"m "+s+"s"
+document.getElementById("contador").innerHTML=
+dias+" días "+horas+"h "+min+"m "+seg+"s"
 
 },1000)
 
-/* fotos */
+/* boton no que huye */
 
-const photos=["foto1.jpg","foto2.jpg","foto3.jpg"]
-let i=0
+const noBtn=document.getElementById("noBtn")
 
-setInterval(()=>{
-i=(i+1)%photos.length
-document.getElementById("photo").src=photos[i]
-},4000)
-
-/* tulipanes */
-
-for(let i=0;i<12;i++){
-
-let t=document.createElement("div")
-t.className="tulip"
-t.innerHTML="🌷"
-t.style.left=Math.random()*100+"%"
-
-document.getElementById("tulips").appendChild(t)
-
-}
-
-/* carta */
-
-function openLetter(){
-document.getElementById("letter").style.display="block"
-}
-
-/* boton no */
-
-function run(){
-
-const btn=document.getElementById("noBtn")
-
-btn.style.position="absolute"
-btn.style.left=Math.random()*80+"%"
-btn.style.top=Math.random()*80+"%"
-
-}
-
-/* boton si */
-
-function love(){
-alert("Ya sabía que dirías que sí ❤️")
-next(8)
-}
-
-/* gato sorpresa */
-
-document.body.addEventListener("dblclick",()=>{
-alert("🐱 miau")
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.position="absolute"
+noBtn.style.left=Math.random()*80+"%"
+noBtn.style.top=Math.random()*80+"%"
 })
 
-/* capybara */
+/* musica */
 
-document.body.addEventListener("keydown",()=>{
-alert("🦫 capybara apareció!")
-})
+document.addEventListener("click",()=>{
+document.getElementById("musica").play()
+},{once:true})
 
 </script>
 
