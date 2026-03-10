@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>You and me</title>
+<title>you and mee</title>
 
 <style>
-
 body{
 margin:0;
-font-family:Arial;
-overflow:hidden;
+font-family:Arial, sans-serif;
 background:#ffd6ec;
-text-align:center;
-color:#333;
+overflow:hidden;
 }
 
 .page{
 display:none;
 height:100vh;
+width:100vw;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-padding:30px;
+text-align:center;
+padding:20px;
+box-sizing:border-box;
 }
 
 .active{
@@ -35,24 +33,15 @@ button{
 padding:12px 25px;
 border:none;
 border-radius:20px;
+background:#ff6fa5;
+color:white;
 font-size:18px;
 margin:10px;
 cursor:pointer;
-background:#ff6fa5;
-color:white;
 }
 
-/* corazones flotando */
-
-.heart{
-position:absolute;
-color:#ff6fa5;
-animation:float 6s linear infinite;
-}
-
-@keyframes float{
-from{transform:translateY(100vh);}
-to{transform:translateY(-10vh);}
+h1,h2,p{
+max-width:600px;
 }
 
 /* contador */
@@ -61,43 +50,54 @@ to{transform:translateY(-10vh);}
 position:absolute;
 bottom:20px;
 left:20px;
-font-size:18px;
 background:white;
 padding:10px;
 border-radius:10px;
 }
 
-/* tulipanes */
+/* corazones */
 
-.tulip-scene{
+.heart{
+position:absolute;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
+}
+
+/* fotos */
+
+#foto{
+width:260px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* flores */
+
+.flower-scene{
 background:black;
 color:white;
 }
 
 .bouquet{
 display:flex;
-gap:60px;
-margin-top:40px;
-}
-
-.tulip{
-position:relative;
-width:40px;
-height:220px;
+gap:80px;
+margin-top:50px;
 }
 
 .stem{
-position:absolute;
-bottom:0;
-left:17px;
 width:6px;
 height:0;
 background:#2ecc71;
+margin:auto;
 animation:growStem 2s forwards;
 }
 
 .leaf{
-position:absolute;
 width:40px;
 height:20px;
 background:#27ae60;
@@ -105,47 +105,45 @@ border-radius:20px;
 opacity:0;
 }
 
-.left{
-left:-30px;
-bottom:80px;
+.leaf.left{
 transform:rotate(-30deg);
-animation:growLeaf 1s forwards;
+margin-left:-30px;
+animation:leafGrow 1s forwards;
 animation-delay:2s;
 }
 
-.right{
-right:-30px;
-bottom:110px;
+.leaf.right{
 transform:rotate(30deg);
-animation:growLeaf 1s forwards;
+margin-left:30px;
+animation:leafGrow 1s forwards;
 animation-delay:2.3s;
 }
 
 .flower{
-position:absolute;
-bottom:140px;
-left:5px;
-width:30px;
+width:0;
 height:0;
-background:#ff6fa5;
-border-radius:50% 50% 0 0;
-animation:bloom 1.5s forwards;
+border-left:20px solid transparent;
+border-right:20px solid transparent;
+border-bottom:40px solid #ff8fc4;
+margin:auto;
+opacity:0;
+animation:bloom 1s forwards;
 animation-delay:3s;
 }
 
 @keyframes growStem{
 from{height:0;}
-to{height:150px;}
+to{height:140px;}
 }
 
-@keyframes growLeaf{
-from{opacity:0; transform:scale(0);}
-to{opacity:1; transform:scale(1);}
+@keyframes leafGrow{
+from{opacity:0;transform:scale(0);}
+to{opacity:1;transform:scale(1);}
 }
 
 @keyframes bloom{
-from{height:0;}
-to{height:40px;}
+from{opacity:0;transform:scale(0);}
+to{opacity:1;transform:scale(1);}
 }
 
 /* carta */
@@ -172,8 +170,8 @@ display:none;
 background:white;
 padding:20px;
 border-radius:10px;
-margin-top:20px;
 max-width:400px;
+margin-top:20px;
 }
 
 /* boton no */
@@ -183,35 +181,28 @@ position:relative;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<audio id="musica">
+<audio id="music">
 <source src="reina_pepiada.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGINA 1 -->
 
 <div class="page active" id="p1">
-
 <h2>Esta página es un poco romántica</h2>
 <p>¿Estás segura de entrar?</p>
-
-<button onclick="nextPage()">Sí</button>
-<button onclick="alert('Entonces pa q entras daahhhh')">No</button>
-
+<button onclick="next()">Sí</button>
+<button>No</button>
 </div>
 
 <!-- PAGINA 2 -->
 
 <div class="page" id="p2">
-
-<h1>Para mi estrellita que hace especiales mis días y más divertidoss</h1>
-
-<button onclick="nextPage()">Entrar</button>
-
+<h1>Para mi estrellita que hace especiales y divertidos mis díass</h1>
+<button onclick="next()">Entrar</button>
 </div>
 
 <!-- PAGINA 3 -->
@@ -219,60 +210,73 @@ position:relative;
 <div class="page" id="p3">
 
 <p>
-
 Para el amor de mi vida:<br><br>
 
-Sabes desde ese día que te conocí me di cuenta de lo mucho que se puede llegar a ser feli,
-desde que estoy contigo encontré un lugar seguro y me siento más feli<br><br>
+Sabes desde ese día que te conocí me di cuenta de lo mucho que se podría llegar a ser de felizzz
+Desde que estoy contigo encontré un lugar seguro y me siento más feli<br><br>
 
-Te agradezco cada día que estás y por eso siempre agradeceré ese 25 de noviembre q nos conocimos
-
+Te agradezco cada día que estás y por eso siempre agradeceré ese 25 de noviembre q nos conocimos porq si
 </p>
 
 <div id="contador"></div>
 
-<button onclick="nextPage()">Siguiente</button>
+<button onclick="next()">Siguiente</button>
 
 </div>
 
-<!-- PAGINA 4 -->
+<!-- PAGINA 4 FOTOS -->
 
-<div class="page tulip-scene" id="p4">
+<div class="page" id="p4">
 
-<h2>Tal vez no son reales, pero me esforcé mucho haciendo esto(se q tan feitos y no son los q esperabas, pero es lo que puedo hacer de momento)</h2>
+<h2>Nuestros recuerditos</h2>
+
+<img id="foto" src="foto1.jpg">
+
+<br><br>
+
+<button onclick="cambiarFoto()">Siguiente foto</button>
+<button onclick="next()">Continuar</button>
+
+</div>
+
+<!-- PAGINA 5 FLORES -->
+
+<div class="page flower-scene" id="p5">
+
+<h2>Tal vez no son reales, pero me esforcé mucho haciendo esto(demasiado)</h2>
 
 <div class="bouquet">
 
-<div class="tulip">
-<div class="stem"></div>
+<div>
+<div class="flower"></div>
 <div class="leaf left"></div>
 <div class="leaf right"></div>
-<div class="flower"></div>
+<div class="stem"></div>
 </div>
 
-<div class="tulip">
-<div class="stem"></div>
+<div>
+<div class="flower"></div>
 <div class="leaf left"></div>
 <div class="leaf right"></div>
-<div class="flower"></div>
+<div class="stem"></div>
 </div>
 
-<div class="tulip">
-<div class="stem"></div>
+<div>
+<div class="flower"></div>
 <div class="leaf left"></div>
 <div class="leaf right"></div>
-<div class="flower"></div>
+<div class="stem"></div>
 </div>
 
 </div>
 
-<button onclick="nextPage()">Siguiente</button>
+<button onclick="next()">Siguiente</button>
 
 </div>
 
-<!-- PAGINA 5 -->
+<!-- PAGINA 6 CARTA -->
 
-<div class="page" id="p5">
+<div class="page" id="p6">
 
 <h2>Haz click en el sobre 💌</h2>
 
@@ -281,52 +285,45 @@ Te agradezco cada día que estás y por eso siempre agradeceré ese 25 de noviem
 <div class="letter" id="carta">
 
 No quiero escribir mucho porque sé la situación en la que estamos,
-pero quiero recordarte lo mucho que te amo y lo mucho que haría por ti
+pero quiero recordarte lo mucho que te amo.
 
-Desde que entraste a mi vida me siento más feliz y me has ayudado
-a mejorar por demasiado y más para mi mismo
+Desde que entraste a mi vida me siento más feli
+y me has ayudado a mejorar demasiado
 
-Eres una niña super especial y linda
-y espero sigas siendo mi niña por siempre sino te robo t lo juro JAKAJAK
+Eres una niña super especial
+y espero sigas siendo mi niña por siempre sino te secuestro y listo
 
-Te amo muchito demasiado t lo juro💕
-
-</div>
-
-<button onclick="nextPage()">Siguiente</button>
+Te amo muchísimooooooo
 
 </div>
 
-<!-- PAGINA 6 -->
+<button onclick="next()">Siguiente</button>
 
-<div class="page" id="p6">
+</div>
+
+<!-- PAGINA 7 JUEGO -->
+
+<div class="page" id="p7">
 
 <h2>¿Me amas?</h2>
 
-<button onclick="nextPage()">Sí</button>
+<button onclick="next()">Sí</button>
 <button id="noBtn">No</button>
 
 </div>
 
 <!-- PAGINA FINAL -->
 
-<div class="page" id="p7">
+<div class="page" id="p8">
 
 <h2>
-
 Muchas gracias por llegar hasta aquí.<br><br>
-
-La verdad me esforcé bastante haciendo esto.<br><br>
-
-Tal vez no es perfecto pero lo hice con todo el amor del mundo.(casi se me cae el pelo)<br><br>
-
-Espero que te haya gustado.<br><br>
-
-Te amo muchísimo 💗
-
+Me esforcé demasiado haciendo esto.(me voy a quedar sin pelo)<br><br>
+Tal vez no es perfecto pero lo hice con todo mi amor y tiempo y dedicación y pelo<br><br>
+Te amo muchísimoooooooo ❤️
 </h2>
 
-<h3>You and me🫶🏻</h3>
+<h3></h3>
 
 </div>
 
@@ -334,11 +331,13 @@ Te amo muchísimo 💗
 
 let page=1
 
-function nextPage(){
+function next(){
 document.getElementById("p"+page).classList.remove("active")
 page++
 document.getElementById("p"+page).classList.add("active")
 }
+
+/* carta */
 
 function abrirCarta(){
 document.getElementById("carta").style.display="block"
@@ -362,7 +361,18 @@ dias+" días "+horas+"h "+min+"m "+seg+"s"
 
 },1000)
 
-/* boton no que huye */
+/* fotos */
+
+let fotos=["foto1.jpg","foto2.jpg","foto3.jpg"]
+let i=0
+
+function cambiarFoto(){
+i++
+if(i>=fotos.length){i=0}
+document.getElementById("foto").src=fotos[i]
+}
+
+/* boton no */
 
 const noBtn=document.getElementById("noBtn")
 
@@ -375,7 +385,7 @@ noBtn.style.top=Math.random()*80+"%"
 /* musica */
 
 document.addEventListener("click",()=>{
-document.getElementById("musica").play()
+document.getElementById("music").play()
 },{once:true})
 
 </script>
